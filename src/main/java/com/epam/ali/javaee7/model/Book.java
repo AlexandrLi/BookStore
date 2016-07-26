@@ -1,27 +1,43 @@
 package com.epam.ali.javaee7.model;
 
-public class Book {
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
-    private String number;
+@Entity
+@NamedQueries({
+        @NamedQuery(name = "findAllBooks", query = "SELECT b FROM Book b"),
+        @NamedQuery(name = "findBookJava", query = "SELECT b FROM Book b WHERE b.title='Java'")
+})
+public class Book {
+    @Id
+    @GeneratedValue
+    private Long id;
+    @NotNull
     private String title;
     private Float price;
     private String description;
+    private String isbn;
+    private Integer numberOfPages;
+    private Boolean illustrations;
 
     public Book() {
     }
 
-    public Book(String title, Float price, String description) {
+    public Book(String title, Float price, String description, String isbn, Integer numberOfPages, Boolean illustrations) {
         this.title = title;
         this.price = price;
         this.description = description;
+        this.isbn = isbn;
+        this.numberOfPages = numberOfPages;
+        this.illustrations = illustrations;
     }
 
-    public String getNumber() {
-        return number;
+    public String getIsbn() {
+        return isbn;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
 
     public String getTitle() {
@@ -48,13 +64,40 @@ public class Book {
         this.description = description;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Integer getNumberOfPages() {
+        return numberOfPages;
+    }
+
+    public void setNumberOfPages(Integer numberOfPages) {
+        this.numberOfPages = numberOfPages;
+    }
+
+    public Boolean getIllustrations() {
+        return illustrations;
+    }
+
+    public void setIllustrations(Boolean illustrations) {
+        this.illustrations = illustrations;
+    }
+
     @Override
     public String toString() {
         return "Book{" +
-                "number='" + number + '\'' +
+                "id=" + id +
                 ", title='" + title + '\'' +
                 ", price=" + price +
                 ", description='" + description + '\'' +
+                ", isbn='" + isbn + '\'' +
+                ", numberOfPages=" + numberOfPages +
+                ", illustrations=" + illustrations +
                 '}';
     }
 }
