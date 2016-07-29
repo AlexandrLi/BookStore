@@ -22,7 +22,7 @@ public class Customer {
     private String phoneNumber;
     @Past
     private Date dateOfBirth;
-    @OneToOne(fetch = FetchType.LAZY,orphanRemoval = true)
+    @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @JoinColumn(name = "address_fk")
     private Address deliveryAddress;
 
