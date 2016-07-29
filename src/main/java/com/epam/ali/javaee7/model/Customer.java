@@ -22,7 +22,7 @@ public class Customer {
     private String phoneNumber;
     @Past
     private Date dateOfBirth;
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY,orphanRemoval = true)
     @JoinColumn(name = "address_fk")
     private Address deliveryAddress;
 
@@ -97,7 +97,8 @@ public class Customer {
     @Override
     public String toString() {
         return "Customer{" +
-                "firstName='" + firstName + '\'' +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
