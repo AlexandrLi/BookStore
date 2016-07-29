@@ -1,10 +1,15 @@
 package com.epam.ali.javaee7.model;
 
-import com.epam.ali.javaee7.annotation.ZipCode;
-
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
+@Entity
 public class Address {
+    @Id
+    @GeneratedValue
+    private Long id;
     @NotNull
     private String street1;
     private String street2;
@@ -12,7 +17,6 @@ public class Address {
     private String city;
     private String state;
     @NotNull
-    @ZipCode
     private String zipcode;
     private String country;
 
@@ -26,6 +30,14 @@ public class Address {
         this.state = state;
         this.zipcode = zipcode;
         this.country = country;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getStreet1() {
@@ -79,7 +91,8 @@ public class Address {
     @Override
     public String toString() {
         return "Address{" +
-                "street1='" + street1 + '\'' +
+                "id=" + id +
+                ", street1='" + street1 + '\'' +
                 ", street2='" + street2 + '\'' +
                 ", city='" + city + '\'' +
                 ", state='" + state + '\'' +

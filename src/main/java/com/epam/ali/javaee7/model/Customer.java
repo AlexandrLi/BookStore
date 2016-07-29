@@ -2,12 +2,17 @@ package com.epam.ali.javaee7.model;
 
 import com.epam.ali.javaee7.annotation.Email;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
+@Entity
 public class Customer {
+    @Id
+    @GeneratedValue
+    private Long id;
     @NotNull
     @Size(min = 2)
     private String firstName;
@@ -17,6 +22,8 @@ public class Customer {
     private String phoneNumber;
     @Past
     private Date dateOfBirth;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "address_fk")
     private Address deliveryAddress;
 
     public Customer() {
@@ -29,6 +36,14 @@ public class Customer {
         this.phoneNumber = phoneNumber;
         this.dateOfBirth = dateOfBirth;
         this.deliveryAddress = deliveryAddress;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getFirstName() {
