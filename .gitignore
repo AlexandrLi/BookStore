@@ -2,3 +2,8 @@
 target/
 .idea
 *.iml
+bookStoreCreate.ddl
+bookStoreDrop.ddl
+create.sql
+derby.log
+drop.sql
