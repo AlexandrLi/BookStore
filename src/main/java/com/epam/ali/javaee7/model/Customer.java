@@ -9,6 +9,10 @@ import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "findAll", query = "SELECT c FROM Customer c"),
+        @NamedQuery(name = "findByFirstName", query = "SELECT c FROM Customer c WHERE c.firstName=:firstName")
+})
 public class Customer {
     @Id
     @GeneratedValue
