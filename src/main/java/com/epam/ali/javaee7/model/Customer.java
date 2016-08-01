@@ -10,10 +10,12 @@ import java.util.Date;
 
 @Entity
 @NamedQueries({
-        @NamedQuery(name = "findAll", query = "SELECT c FROM Customer c"),
-        @NamedQuery(name = "findByFirstName", query = "SELECT c FROM Customer c WHERE c.firstName=:firstName")
+        @NamedQuery(name = Customer.FIND_ALL, query = "SELECT c FROM Customer c"),
+        @NamedQuery(name = Customer.FIND_ALL_BY_NAME, query = "SELECT c FROM Customer c WHERE c.firstName=:firstName")
 })
 public class Customer {
+    public static final String FIND_ALL = "Customer.findAll";
+    public static final String FIND_ALL_BY_NAME = "Customer.findAllByName";
     @Id
     @GeneratedValue
     private Long id;
