@@ -22,7 +22,7 @@ public class BookService {
         return new Book(title, price, description, isbn, numberOfPages, illustrations);
     }
 
-    public void persistBook(Book book) {
+    public Book persistBook(Book book) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("bookStore");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
@@ -31,5 +31,6 @@ public class BookService {
         transaction.commit();
         entityManager.close();
         entityManagerFactory.close();
+        return book;
     }
 }
