@@ -1,14 +1,18 @@
 package com.epam.ali.javaee7.model;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.NamedNativeQuery;
 import javax.validation.constraints.NotNull;
 
+import static com.epam.ali.javaee7.model.Book.FIND_ALL;
+
 @Entity
-@NamedQueries({
-        @NamedQuery(name = "findAllBooks", query = "SELECT b FROM Book b"),
-        @NamedQuery(name = "findBookJava", query = "SELECT b FROM Book b WHERE b.title='Java'")
-})
+@NamedNativeQuery(name = FIND_ALL, query = "SELECT * FROM BOOK")
 public class Book {
+    public static final String FIND_ALL = "Book.findAll";
+    public static final String FIND_ALL_BY_TITLE = "Book.findAllByTitle";
     @Id
     @GeneratedValue
     private Long id;
