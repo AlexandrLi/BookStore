@@ -14,7 +14,6 @@
             <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/bookStoreDB;create=true"/>
             <property name="javax.persistence.jdbc.user" value="admin"/>
             <property name="javax.persistence.jdbc.password" value="admin"/>
-            <property name="eclipselink.logging.level" value="INFO"/>
         </properties>
     </persistence-unit>
     <persistence-unit name="bookStoreTest" transaction-type="RESOURCE_LOCAL">
