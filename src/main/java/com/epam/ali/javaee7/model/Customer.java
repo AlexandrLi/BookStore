@@ -9,6 +9,7 @@ import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
+@Cacheable(true)
 @NamedQueries({
         @NamedQuery(name = Customer.FIND_ALL, query = "SELECT c FROM Customer c"),
         @NamedQuery(name = Customer.FIND_ALL_BY_NAME, query = "SELECT c FROM Customer c WHERE c.firstName=:firstName")
