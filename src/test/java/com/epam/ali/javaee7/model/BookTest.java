@@ -42,9 +42,15 @@ public class BookTest extends TestCase {
         em.persist(book);
         tx.commit();
         assertNotNull("Id can not be empty", book.getId());
+        assertEquals(new Integer(1),book.getVersion());
+        tx.begin();
+        book = em.find(Book.class, book.getId());
+        book.setDescription("Java EE 7 book version 2");
+        tx.commit();
+        assertEquals(new Integer(2),book.getVersion());
         TypedQuery<Book> query = em.createQuery("SELECT b FROM Book b WHERE b.id=" + book.getId(), Book.class);
         Book result = query.getSingleResult();
-        assertEquals("Java EE 7 book", result.getDescription());
+        assertEquals("Java EE 7 book version 2", result.getDescription());
     }
 
     public void testShouldRaiseConstraintViolationCauseNullTitle() {
@@ -57,4 +63,6 @@ public class BookTest extends TestCase {
         }
 
     }
+
+
 }
