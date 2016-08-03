@@ -1,5 +1,6 @@
 package com.epam.ali.javaee7.model;
 
+import com.epam.ali.javaee7.AgeCalculationListener;
 import com.epam.ali.javaee7.annotation.Email;
 
 import javax.persistence.*;
@@ -14,6 +15,7 @@ import java.util.Date;
         @NamedQuery(name = Customer.FIND_ALL, query = "SELECT c FROM Customer c"),
         @NamedQuery(name = Customer.FIND_ALL_BY_NAME, query = "SELECT c FROM Customer c WHERE c.firstName=:firstName")
 })
+@EntityListeners(AgeCalculationListener.class)
 public class Customer {
     public static final String FIND_ALL = "Customer.findAll";
     public static final String FIND_ALL_BY_NAME = "Customer.findAllByName";
@@ -28,10 +30,15 @@ public class Customer {
     private String email;
     private String phoneNumber;
     @Past
+    @Temporal(TemporalType.DATE)
     private Date dateOfBirth;
     @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @JoinColumn(name = "address_fk")
     private Address deliveryAddress;
+    @Transient
+    private Integer age;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date creationDate;
 
     public Customer() {
     }
@@ -51,6 +58,22 @@ public class Customer {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
     }
 
     public String getFirstName() {
@@ -101,6 +124,11 @@ public class Customer {
         this.deliveryAddress = deliveryAddress;
     }
 
+    @PostPersist
+    private void setCreationDateOnPersist() {
+        this.creationDate = new Date();
+    }
+
     @Override
     public String toString() {
         return "Customer{" +
@@ -111,6 +139,8 @@ public class Customer {
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", dateOfBirth=" + dateOfBirth +
                 ", deliveryAddress=" + deliveryAddress +
+                ", age=" + age +
+                ", creationDate=" + creationDate +
                 '}';
     }
 }
