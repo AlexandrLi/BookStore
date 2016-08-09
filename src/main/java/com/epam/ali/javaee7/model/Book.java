@@ -17,6 +17,8 @@ public class Book {
     @NotNull
     private String title;
     private Float price;
+    @Transient
+    private String currency;
     private String description;
     private String isbn;
     private Integer numberOfPages;
@@ -70,6 +72,14 @@ public class Book {
         this.description = description;
     }
 
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
     public Long getId() {
         return id;
     }
@@ -94,18 +104,6 @@ public class Book {
         this.illustrations = illustrations;
     }
 
-    @Override
-    public String toString() {
-        return "Book{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", price=" + price +
-                ", description='" + description + '\'' +
-                ", isbn='" + isbn + '\'' +
-                ", numberOfPages=" + numberOfPages +
-                ", illustrations=" + illustrations +
-                '}';
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -121,5 +119,20 @@ public class Book {
     @Override
     public int hashCode() {
         return id != null ? id.hashCode() : 0;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", version=" + version +
+                ", title='" + title + '\'' +
+                ", price=" + price +
+                ", currency='" + currency + '\'' +
+                ", description='" + description + '\'' +
+                ", isbn='" + isbn + '\'' +
+                ", numberOfPages=" + numberOfPages +
+                ", illustrations=" + illustrations +
+                '}';
     }
 }
