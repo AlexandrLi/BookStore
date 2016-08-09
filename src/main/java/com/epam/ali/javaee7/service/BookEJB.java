@@ -36,6 +36,11 @@ public class BookEJB {
     @Resource
     private SessionContext context;
 
+    @Resource(name = "currencyEntry")
+    private Float changeRate;
+    @Resource(name = "changeRateEntry")
+    private String currency;
+
     public Book persistBook(Book book) {
         if (!context.isCallerInRole("admin")) {
             throw new SecurityException("Only administrators can create books");
@@ -63,5 +68,11 @@ public class BookEJB {
         Root<Book> book = query.from(Book.class);
         query.select(book).where(builder.equal(book.get(Book_.title), title));
         return em.createQuery(query).getResultList();
+    }
+
+    public Book convertPrice(Book book) {
+        book.setPrice(book.getPrice() * changeRate);
+        book.setCurrency(currency);
+        return book;
     }
 }
