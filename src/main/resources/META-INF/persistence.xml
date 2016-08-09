@@ -4,8 +4,8 @@
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
              version="2.1">
 
-    <persistence-unit name="bookStore" transaction-type="RESOURCE_LOCAL">
-        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <persistence-unit name="bookStore" transaction-type="JTA">
+        <jta-data-source>jdbc/__default</jta-data-source>
         <class>com.epam.ali.javaee7.model.Book</class>
         <class>com.epam.ali.javaee7.model.Customer</class>
         <class>com.epam.ali.javaee7.model.Address</class>
@@ -15,6 +15,7 @@
             <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/bookStoreDB;create=true"/>
             <property name="javax.persistence.jdbc.user" value="admin"/>
             <property name="javax.persistence.jdbc.password" value="admin"/>
+            <property name="eclipselink.canonicalmodel.subpackage" value="main"/>
         </properties>
     </persistence-unit>
     <persistence-unit name="bookStoreTest" transaction-type="RESOURCE_LOCAL">
@@ -27,6 +28,7 @@
             <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/>
             <property name="javax.persistence.jdbc.url" value="jdbc:derby:memory:bookStoreDB;create=true"/>
             <property name="javax.persistence.sql-load-script-source" value="insert.sql"/>
+            <property name="eclipselink.canonicalmodel.subpackage" value="test"/>
         </properties>
     </persistence-unit>
 </persistence>
