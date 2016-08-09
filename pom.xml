@@ -17,6 +17,7 @@
         <hibernate.version>5.2.4.Final</hibernate.version>
         <derby.version>10.12.1.1</derby.version>
         <org.eclipse.persistence.jpa.version>2.6.3</org.eclipse.persistence.jpa.version>
+        <glassfish.version>4.1.1</glassfish.version>
     </properties>
 
     <dependencies>
@@ -56,6 +57,12 @@
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.main.extras</groupId>
+            <artifactId>glassfish-embedded-all</artifactId>
+            <version>${glassfish.version}</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
     <build>
