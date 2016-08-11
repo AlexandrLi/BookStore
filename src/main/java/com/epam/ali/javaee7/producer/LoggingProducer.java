@@ -1,4 +1,4 @@
-package com.epam.ali.javaee7;
+package com.epam.ali.javaee7.producer;
 
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
