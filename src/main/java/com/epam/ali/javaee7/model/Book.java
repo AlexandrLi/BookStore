@@ -2,12 +2,15 @@ package com.epam.ali.javaee7.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import java.io.Serializable;
 
 import static com.epam.ali.javaee7.model.Book.FIND_ALL;
 
 @Entity
 @NamedNativeQuery(name = FIND_ALL, query = "SELECT * FROM BOOK")
-public class Book {
+public class Book implements Serializable {
     public static final String FIND_ALL = "Book.findAll";
     @Id
     @GeneratedValue
@@ -15,10 +18,13 @@ public class Book {
     @Version
     private Integer version;
     @NotNull
+    @Column(nullable = false)
     private String title;
     private Float price;
     @Transient
     private String currency;
+    @Size(max = 2000)
+    @Column(length = 2000)
     private String description;
     private String isbn;
     private Integer numberOfPages;
