@@ -9,7 +9,7 @@ import java.io.Serializable;
 import static com.epam.ali.javaee7.model.Book.FIND_ALL;
 
 @Entity
-@NamedNativeQuery(name = FIND_ALL, query = "SELECT * FROM BOOK")
+@NamedQuery(name = FIND_ALL, query = "SELECT b from Book b ORDER BY b.title DESC")
 public class Book implements Serializable {
     public static final String FIND_ALL = "Book.findAll";
     @Id
@@ -18,40 +18,28 @@ public class Book implements Serializable {
     @Version
     private Integer version;
     @NotNull
+    @Size(min = 4, max = 50)
     @Column(nullable = false)
     private String title;
     private Float price;
-    @Transient
-    private String currency;
-    @Size(max = 2000)
     @Column(length = 2000)
     private String description;
-    private String isbn;
     private Integer numberOfPages;
     private Boolean illustrations;
 
     public Book() {
     }
 
-    public Book(String title, Float price, String description, String isbn, Integer numberOfPages, Boolean illustrations) {
+    public Book(String title, Float price, String description, Integer numberOfPages, Boolean illustrations) {
         this.title = title;
         this.price = price;
         this.description = description;
-        this.isbn = isbn;
         this.numberOfPages = numberOfPages;
         this.illustrations = illustrations;
     }
 
     public Integer getVersion() {
         return version;
-    }
-
-    public String getIsbn() {
-        return isbn;
-    }
-
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
     }
 
     public String getTitle() {
@@ -78,13 +66,6 @@ public class Book implements Serializable {
         this.description = description;
     }
 
-    public String getCurrency() {
-        return currency;
-    }
-
-    public void setCurrency(String currency) {
-        this.currency = currency;
-    }
 
     public Long getId() {
         return id;
@@ -110,7 +91,6 @@ public class Book implements Serializable {
         this.illustrations = illustrations;
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -127,18 +107,5 @@ public class Book implements Serializable {
         return id != null ? id.hashCode() : 0;
     }
 
-    @Override
-    public String toString() {
-        return "Book{" +
-                "id=" + id +
-                ", version=" + version +
-                ", title='" + title + '\'' +
-                ", price=" + price +
-                ", currency='" + currency + '\'' +
-                ", description='" + description + '\'' +
-                ", isbn='" + isbn + '\'' +
-                ", numberOfPages=" + numberOfPages +
-                ", illustrations=" + illustrations +
-                '}';
-    }
+
 }
