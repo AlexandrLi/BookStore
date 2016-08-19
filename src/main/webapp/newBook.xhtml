@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://xmlns.jcp.org/jsf/core" xml:lang="en" lang="en">
+<ui:composition template="layout.xhtml">
+    <ui:define name="title">Create new Book</ui:define>
+    <ui:define name="content">
+        <h:form id="bookForm">
+            <h:panelGrid columns="2">
+                <h:outputLabel value="Title: "/>
+                <h:inputText value="#{bookController.book.title}"/>
+                <h:outputLabel value="Price: "/>
+                <h:inputText value="#{bookController.book.price}"/>
+                <h:outputLabel value="Description: "/>
+                <h:inputTextarea cols="16" rows="3" value="#{bookController.book.description}"/>
+                <h:outputLabel value="Number of pages: "/>
+                <h:inputText value="#{bookController.book.numberOfPages}"/>
+                <h:outputLabel value="Illustrations: "/>
+                <h:selectBooleanCheckbox value="#{bookController.book.illustrations}"/>
+            </h:panelGrid>
+            <h:commandButton value="Create book" action="#{bookController.doCreateBook}">
+                <f:ajax execute="@form" render=":booklist :errors"/>
+            </h:commandButton>
+        </h:form>
+        <hr/>
+        <h1>Book List</h1>
+        <h:dataTable id="booklist" value="#{bookEJB.findAllBooks()}" var="book" border="1">
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Title"/>
+                </f:facet>
+                <h:link outcome="viewBook.xhtml?id=#{book.id}" value="#{book.title}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Price"/>
+                </f:facet>
+                <h:outputText value="#{book.price}"/>
+            </h:column>
+        </h:dataTable>
+    </ui:define>
+</ui:composition>
+</html>
