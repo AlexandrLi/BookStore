@@ -2,44 +2,29 @@ package com.epam.ali.javaee7.service;
 
 import com.epam.ali.javaee7.model.Book;
 
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
-import javax.inject.Inject;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
-import javax.validation.constraints.NotNull;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
+@Named
 @Stateless
-@LocalBean
-public class BookEJB implements BookEJBRemote {
+public class BookEJB {
 
-    @Inject
+    @PersistenceContext(unitName = "bookStore")
     private EntityManager em;
 
-    @Override
-    public List<Book> findBooks() {
-        TypedQuery<Book> query = em.createNamedQuery(Book.FIND_ALL, Book.class);
-        return query.getResultList();
+    public List<Book> findAllBooks() {
+        return em.createNamedQuery(Book.FIND_ALL, Book.class).getResultList();
     }
 
-    @Override
-    public
-    @NotNull
-    Book createBook(@NotNull Book book) {
+    public Book createBook(Book book) {
         em.persist(book);
         return book;
     }
 
-    @Override
-    public
-    @NotNull
-    Book updateBook(@NotNull Book book) {
-        return em.merge(book);
-    }
-
-    @Override
-    public void deleteBook(@NotNull Book book) {
-        em.remove(em.merge(book));
+    public Book findBookById(Long id) {
+        return em.find(Book.class, id);
     }
 }
